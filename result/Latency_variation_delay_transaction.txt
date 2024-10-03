@@ -1,0 +1,6 @@
+NumPeer, Transaction time (S), Consensus Time (S)
+5,2.87, 0.7
+10,5.94, 1.89
+20,12.32, 4.12
+30,21.24, 6.90
+40,30.35, 9.24

@@ -1,0 +1,289 @@
+name: "cobra-service-network"
+version: "1.0.0"
+
+
+# Client section to initalise orga and crypto files
+client:
+
+  logging:
+    level: info
+
+  # Name of orga define in configtx
+  organization: Provider1MSP
+
+  # Root of the MSP directories with keys and certs.
+  cryptoconfig:
+    path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config
+
+  # Some SDKs support pluggable KV stores, the properties under "credentialStore"
+  credentialStore:
+
+    #  Used by user store. Not needed if all credentials are embedded in configuration and enrollments are performed elsewhere.
+    path: /tmp/cobra-state-store
+
+    # Specific to the CryptoSuite implementation used by GO SDK.
+    path: /tmp/cobra-msp
+
+  # BCCSP config for the client. Used by GO SDK.
+  BCCSP:
+    security:
+     enabled: true
+     default:
+      provider: "SW"
+     hashAlgorithm: "SHA2"
+     softVerify: true
+     level: 256
+
+  tlsCerts:
+    systemCertPool: false
+
+    # Client key and cert for TLS handshake with peers and orderers
+    client:
+      key:
+        path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/users/Admin@research-network.com/tls/client.key
+      cert:
+        path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/users/Admin@research-network.com/tls/client.crt
+
+  # To deconnect if failure with time limit
+  connection:
+    timeout:
+      peer:
+        endorser: "300"
+
+# Channel section to initalise coperative, peer / orderer
+channels:
+  channelcoop:
+    peers:
+      peer0.pro1.research-network.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.pro2.research-network.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.pro3.research-network.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.pro4.research-network.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer0.pro5.research-network.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+    policies:
+      #[Optional] options for retrieving channel configuration blocks
+      queryChannelConfig:
+        #[Optional] min number of success responses (from targets/peers)
+        minResponses: 1
+        #[Optional] channel config will be retrieved for these number of random targets
+        maxTargets: 1
+        #[Optional] retry options for query config block
+        retryOpts:
+          #[Optional] number of retry attempts
+          attempts: 3
+          #[Optional] the back off interval for the first retry attempt
+          initialBackoff: 500ms
+          #[Optional] the maximum back off interval for any retry attempt
+          maxBackoff: 5s
+          #[Optional] he factor by which the initial back off period is exponentially incremented
+          backoffFactor: 2.0
+
+#
+# List all organizations will participate in this network / to complete refer to configtx file
+#
+organizations:
+  Provider1MSP:
+    mspid: Provider1MSP
+
+    # This org's MSP store (absolute path or relative to client.cryptoconfig)
+    cryptoPath: peerOrganizations/pro1.research-network.com/users/Admin@pro1.research-network.com/msp
+
+    peers:
+      - peer0.pro1.research-network.com
+
+    certificateAuthorities:
+      - ca.pro1.research-network.com
+      - tlsca.pro1.research-network.com
+
+  Provider2MSP:
+    mspid: Provider2MSP
+
+    # This org's MSP store (absolute path or relative to client.cryptoconfig)
+    cryptoPath: peerOrganizations/pro2.research-network.com/users/Admin@pro2.research-network.com/msp
+
+    peers:
+      - peer0.pro2.research-network.com
+
+    certificateAuthorities:
+      - ca.pro2.research-network.com
+      - tlsca.pro2.research-network.com
+
+  Provider3MSP:
+    mspid: Provider3MSP
+
+    # This org's MSP store (absolute path or relative to client.cryptoconfig)
+    cryptoPath: peerOrganizations/pro3.research-network.com/users/Admin@pro3.research-network.com/msp
+
+    peers:
+      - peer0.pro3.research-network.com
+
+    certificateAuthorities:
+      - ca.pro3.research-network.com
+      - tlsca.pro3.research-network.com
+
+  Provider4MSP:
+    mspid: Provider4MSP
+
+    # This org's MSP store (absolute path or relative to client.cryptoconfig)
+    cryptoPath: peerOrganizations/pro4.research-network.com/users/Admin@pro4.research-network.com/msp
+
+    peers:
+      - peer0.pro4.research-network.com
+
+    certificateAuthorities:
+      - ca.pro4.research-network.com
+      - tlsca.pro4.research-network.com
+
+  Provider5MSP:
+    mspid: Provider5MSP
+
+    # This org's MSP store (absolute path or relative to client.cryptoconfig)
+    cryptoPath: peerOrganizations/pro5.research-network.com/users/Admin@pro5.research-network.com/msp
+
+    peers:
+      - peer0.pro5.research-network.com
+
+    certificateAuthorities:
+      - ca.pro5.research-network.com
+      - tlsca.pro5.research-network.com
+
+orderers:
+  orderer.research-network.com:
+    url: localhost:7050
+
+    grpcOptions:
+      ssl-target-name-override: orderer.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/tlsca/tlsca.research-network.com-cert.pem
+
+peers:
+  peer0.pro1.research-network.com:
+    url: localhost:7051
+
+    grpcOptions:
+      ssl-target-name-override: peer0.pro1.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro1.research-network.com/tlsca/tlsca.pro1.research-network.com-cert.pem
+      #path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro1.research-network.com/peers/peer0.pro1.research-network.com/tls/ca.crt
+
+peer0.pro2.research-network.com:
+    url: localhost:7051
+
+    grpcOptions:
+      ssl-target-name-override: peer0.pro2.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro2.research-network.com/tlsca/tlsca.pro1.research-network.com-cert.pem
+
+peer0.pro3.research-network.com:
+    url: localhost:7051
+
+    grpcOptions:
+      ssl-target-name-override: peer0.pro3.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro3.research-network.com/tlsca/tlsca.pro1.research-network.com-cert.pem
+
+peer0.pro4.research-network.com:
+    url: localhost:7051
+
+    grpcOptions:
+      ssl-target-name-override: peer0.pro4.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro4.research-network.com/tlsca/tlsca.pro1.research-network.com-cert.pem
+
+peer0.pro5.research-network.com:
+    url: localhost:7051
+
+    grpcOptions:
+      ssl-target-name-override: peer0.pro5.research-network.com
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      keep-alive-permit: false
+      fail-fast: false
+      allow-insecure: false
+
+    tlsCACerts:
+      path: /home/rzn/Hyperledger/fabric-samples/research-network/crypto-config/peerOrganizations/pro5.research-network.com/tlsca/tlsca.pro1.research-network.com-cert.pem
+
+
+entityMatchers:
+  peer:
+    - pattern: (\w*)peer0.pro1.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7051
+      sslTargetOverrideUrlSubstitutionExp: peer0.pro1.research-network.com
+      mappedHost: peer0.pro1.research-network.com
+
+    - pattern: (\w*)peer0.pro2.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7051
+      sslTargetOverrideUrlSubstitutionExp: peer0.pro2.research-network.com
+      mappedHost: peer0.pro2.research-network.com
+
+    - pattern: (\w*)peer0.pro3.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7051
+      sslTargetOverrideUrlSubstitutionExp: peer0.pro3.research-network.com
+      mappedHost: peer0.pro3.research-network.com
+
+    - pattern: (\w*)peer0.pro4.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7051
+      sslTargetOverrideUrlSubstitutionExp: peer0.pro4.research-network.com
+      mappedHost: peer0.pro4.research-network.com
+
+    - pattern: (\w*)peer0.pro5.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7051
+      sslTargetOverrideUrlSubstitutionExp: peer0.pro5.research-network.com
+      mappedHost: peer0.pro5.research-network.com
+
+  orderer:
+    - pattern: (\w*)orderer.research-network.com(\w*)
+      urlSubstitutionExp: localhost:7050
+      sslTargetOverrideUrlSubstitutionExp: orderer.research-network.com
+      mappedHost: orderer.research-network.com

@@ -1,0 +1,49 @@
+MODEL : TaskOffloadingRoundRobin
+Task executed, Time delay (S)
+10,25.84
+20,52.36
+30,79.03
+40,109.80
+50,137.26
+60,160.05
+70,178.01
+
+MODEL : TaskOffloadRandom
+Task executed, Time delay (S)
+10,26.14
+20,52.62
+30,80.85
+40,106.24
+50,135.39
+60,159.48
+70,177.86
+
+MODEL : TaskOffloadECP
+Task executed, Time delay (S)
+10,25.35
+20,57.58
+30,84.12
+40,110.40
+50,141.04
+60,170.49
+70,196.82
+
+MODEL : TaskOffloadEnergyAware
+Task executed, Time delay (S)
+10,28.29
+20,57.02
+30,88.01
+40,114.62
+50,143.53
+60,172.11
+70,191.63
+
+MODEL : TaskOffloadCobra
+Task executed, Time delay (S)
+10,28.78
+20,59.46
+30,86.63
+40,109.46
+50,141.92
+60,165.07
+70,189.27
