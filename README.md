@@ -22,9 +22,9 @@ We simulate the execution of an task with a time-sleep method based on five pape
 - Realizing XR Applications Using 5G-Based 3D Holographic Communication and Mobile Edge Computing Yuan et al.
 
 You can find in this repository, 2 Folder and 2 Files :
-- The **"fabric_simulation_client_code"__ folder contains some code in go to interecact with the Hyperledger blockchain, the **"clean"__ code allow to delete all data in the blockchain, the **"queryAll"__ code allow to show the data of an ledger in this case the device ledger or the task ledger, the **"register_device"__ allow to register massively device in the blockchain you can chosse the number of device and the proportion beetween EC or UAV, finnaly the **"cobra-config"__ yaml file is the most important is allow the communication beetween the client and the blockcahin he containes parameter and credential to acces on the blockchain.
--  The **"result"__ folder contains different csv result files of the simulation and also a python code to generate graphes.
--  For the 2 files, there are the **"Cobra_Algo_SC"__ go file is the smart contract inplement in my Blockchain and the **"simulation"__ go file to simulate the task send and have the result, a more detailed explanation is available below.
+- The ***"fabric_simulation_client_code"*** folder contains some code in go to interecact with the Hyperledger blockchain, the ***"clean"*** code allow to delete all data in the blockchain, the ***"queryAll"*** code allow to show the data of an ledger in this case the device ledger or the task ledger, the ***"register_device"*** allow to register massively device in the blockchain you can chosse the number of device and the proportion beetween EC or UAV, finnaly the ***"cobra-config"*** yaml file is the most important is allow the communication beetween the client and the blockcahin he containes parameter and credential to acces on the blockchain.
+-  The ***"result"*** folder contains different csv result files of the simulation and also a python code to generate graphes.
+-  For the 2 files, there are the ***"Cobra_Algo_SC"*** go file is the smart contract inplement in my Blockchain and the ***"simulation"*** go file to simulate the task send and have the result, a more detailed explanation is available below.
 
 ## Smart Contract: COBRA Framework
 Task Offloading Algorithms: Implements multiple task offloading strategies, including:
