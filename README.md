@@ -169,9 +169,15 @@ go build Simulation.go
 The simulation will generate 2,000 tasks, send them to the blockchain, and provide performance metrics about 2 Hours for each simulation with a model you can choose one of the 5 different model and modify the number of task and the proportion of task type.
 
 
-# Some Example of Result:
-![Uploading UAV Battery Variation.png…]()
+# Some Example of Result that show the efficiency of my framework:
+
+This graph the variation of the Battery after 1000 task send :
+![UAV Battery Variation](https://github.com/user-attachments/assets/3ede3434-ebd9-4482-b958-791c3559bcda)
+
+Here you can see the delay for task, this time delay includes the entire transaction time, also the time taken by the device to execute the task :
 ![Time Delay](https://github.com/user-attachments/assets/93a4f689-347b-46f2-9c88-fdf8f1ab84ee)
+
+And here you can see the proportion of the offload on the UVA by the different model :
 ![Proportion](https://github.com/user-attachments/assets/effdd04b-6ee7-408d-86ef-fcf53ee6b150)
 
 
