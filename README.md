@@ -7,32 +7,34 @@ This repository contains the COBRA Framework with is simulation, a smart contrac
 The repository also includes a Go-based simulation program that generates tasks and interacts with the blockchain to simulate real-world usage. The simulation tracks task completion, UAV battery life, EC compute resources, and system performance metrics like bandwidth, task duration, and consensus time.
 
 All the UAV and EC are simulate, an EC is 10 time more powerful than a UAV and for the task we simulate 6 different type of task :
-      - **Immersive communication**: This will provide users with a rich and interactive video experience, including interactions with machine interfaces. Typical use cases include communication for immersive XR, remote multi-sensory telepresence, and holographic communications. While 5G is theoretically also capable of supporting these use cases, the numbers supported by a single cell are very limited, so this is an extension of those capabilities.
-      - **Hyper-reliable and low-latency communication**: This will enhance communications in an industrial environment for full automation, control, and operation. These types of communications can help various applications such as machine interactions, emergency services, telemedicine, and monitoring for electrical power transmission and distribution. This is an extension of 5G’s URLLC.
-      - **Ubiquitous connectivity**: This will bridge the digital divide, especially for rural and remote areas. Typical use cases include IoT and mobile broadband communication but can also include access for hikers, farmers and others.
-      - **Massive communication**: This will connect many devices or sensors for various use cases and applications, including in smart cities, transportation, logistics, health, energy, environmental monitoring, and agriculture. This, too, is an extension of what has been defined in 5G. 
-      - **AI and communication**: This will support automated driving, autonomous collaboration between devices for medical assistance applications, offloading heavy computation operations across devices and networks, creation of and prediction with digital twins, and more.
-      - **Integrated sensing and communication**: This will improve applications and services requiring sensing capabilities, such as assisted navigation, activity detection, movement tracking, environmental monitoring, and sensing data on surroundings for AI and XR.
+- **Immersive communication**: This will provide users with a rich and interactive video experience, including interactions with machine interfaces. Typical use cases include communication for immersive XR, remote multi-sensory telepresence, and holographic communications. While 5G is theoretically also capable of supporting these use cases, the numbers supported by a single cell are very limited, so this is an extension of those capabilities.
+- **Hyper-reliable and low-latency communication**: This will enhance communications in an industrial environment for full automation, control, and operation. These types of communications can help various applications such as machine interactions, emergency services, telemedicine, and monitoring for electrical power transmission and distribution. This is an extension of 5G’s URLLC.
+- **Ubiquitous connectivity**: This will bridge the digital divide, especially for rural and remote areas. Typical use cases include IoT and mobile broadband communication but can also include access for hikers, farmers and others.
+- **Massive communication**: This will connect many devices or sensors for various use cases and applications, including in smart cities, transportation, logistics, health, energy, environmental monitoring, and agriculture. This, too, is an extension of what has been defined in 5G. 
+- **AI and communication**: This will support automated driving, autonomous collaboration between devices for medical assistance applications, offloading heavy computation operations across devices and networks, creation of and prediction with digital twins, and more.
+- **Integrated sensing and communication**: This will improve applications and services requiring sensing capabilities, such as assisted navigation, activity detection, movement tracking, environmental monitoring, and sensing data on surroundings for AI and XR.
 
- We simulate the execution of an task with a time-sleep method based on five paper mainly :
-      - Ultra-reliable and low-latency communications: applications, opportunities and challenges by FENG et al.
-      - Towards an Evolved Immersive Experience: Exploring 5G- and Beyond-Enabled Ultra-Low-Latency Communications for Augmented and Virtual Reality Hazarika et al.
-      - High-Reliability and Low-Latency Wireless Communication for Internet of Things: Challenges, Fundamentals, and Enabling Technologies by Ma et al.
-      - Sensing and Communication Integrated System for Autonomous Driving Vehicles by Zhang et al.
-      - Realizing XR Applications Using 5G-Based 3D Holographic Communication and Mobile Edge Computing Yuan et al.
+We simulate the execution of an task with a time-sleep method based on five paper mainly :
+- Ultra-reliable and low-latency communications: applications, opportunities and challenges by FENG et al.
+- Towards an Evolved Immersive Experience: Exploring 5G- and Beyond-Enabled Ultra-Low-Latency Communications for Augmented and Virtual Reality Hazarika et al.
+- High-Reliability and Low-Latency Wireless Communication for Internet of Things: Challenges, Fundamentals, and Enabling Technologies by Ma et al.
+- Sensing and Communication Integrated System for Autonomous Driving Vehicles by Zhang et al.
+- Realizing XR Applications Using 5G-Based 3D Holographic Communication and Mobile Edge Computing Yuan et al.
 
 You can find in this repository, 2 Folder and 2 Files :
-          - The "fabric_simulation_client_code" folder contains some code in go to interecact with the Hyperledger blockchain, the "clean" code allow to delete all data in the blockchain, the "queryAll" code allow to show the data of an ledger in this case the device ledger or the task ledger, the "register_device" allow to register massively device in the blockchain you can chosse the number of device and the proportion beetween EC or UAV, finnaly the "cobra-config" yaml file is the most important is allow the communication beetween the client and the blockcahin he containes parameter and credential to acces on the blockchain.
-          -  The "result" folder contains different csv result files of the simulation and also a python code to generate graphes.
-          -  For the 2 files, there are the "Cobra_Algo_SC" go file is the smart contract inplement in my Blockchain and the "simulation" go file to simulate the task send and have the result, a more detailed explanation is available below.
+- The "fabric_simulation_client_code" folder contains some code in go to interecact with the Hyperledger blockchain, the "clean" code allow to delete all data in the blockchain, the "queryAll" code allow to show the data of an ledger in this case the device ledger or the task ledger, the "register_device" allow to register massively device in the blockchain you can chosse the number of device and the proportion beetween EC or UAV, finnaly the "cobra-config" yaml file is the most important is allow the communication beetween the client and the blockcahin he containes parameter and credential to acces on the blockchain.
+-  The "result" folder contains different csv result files of the simulation and also a python code to generate graphes.
+-  For the 2 files, there are the "Cobra_Algo_SC" go file is the smart contract inplement in my Blockchain and the "simulation" go file to simulate the task send and have the result, a more detailed explanation is available below.
 
 ## Smart Contract: COBRA Framework
-   Task Offloading Algorithms: Implements multiple task offloading strategies, including:
-          - Round Robin: Tasks are distributed to devices in a round-robin fashion.
-          - Random Selection: Tasks are assigned randomly to available devices.
-          - Energy-Aware Task Scheduling: Optimizes task scheduling based on energy levels and compute resources, extending the operational time of the network.
-          - COBRA Algorithm: Uses a combination of Task Cost Index (TCI) and Reliability Index (RI) to assign tasks based on device reputation, available resources, and energy levels.
-   Device Management: Supports registration, status updates, and tracking of UAVs and ECs. Devices are monitored for their compute resources, energy consumption, and overall reputation.
+Task Offloading Algorithms: Implements multiple task offloading strategies, including:
+- Round Robin: Tasks are distributed to devices in a round-robin fashion.
+- Random Selection: Tasks are assigned randomly to available devices.
+- ECP : Task Offload based on a choice that priotorize Edge Server  
+- Energy-Aware Task Scheduling: Optimizes task scheduling based on energy levels and compute resources, extending the operational time of the network based on Energy-Aware Task Scheduling proposed by Ningning Wang
+- COBRA Algorithm: Uses a combination of Task Cost Index (TCI) and Reliability Index (RI) to assign tasks based on device reputation, available resources, and energy levels.
+
+Device Management: Supports registration, status updates, and tracking of UAVs and ECs. Devices are monitored for their compute resources, energy consumption, and overall reputation.
 
    Metrics: Tracks key metrics such as:
 
