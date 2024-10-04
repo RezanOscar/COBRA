@@ -34,32 +34,33 @@ Task Offloading Algorithms: Implements multiple task offloading strategies, incl
 - Energy-Aware Task Scheduling: Optimizes task scheduling based on energy levels and compute resources, extending the operational time of the network based on Energy-Aware Task Scheduling proposed by Ningning Wang
 - COBRA Algorithm: Uses a combination of Task Cost Index (TCI) and Reliability Index (RI) to assign tasks based on device reputation, available resources, and energy levels.
 
-Device Management: Supports registration, status updates, and tracking of UAVs and ECs. Devices are monitored for their compute resources, energy consumption, and overall reputation.
+Device Management: 
+- Supports registration, status updates, and tracking of UAVs and ECs. Devices are monitored for their compute resources, energy consumption, and overall reputation.
 
-   Metrics: Tracks key metrics such as:
+Tracks key metrics such as:
 
-   Task completion time
-   Device reputation (with periodic recalculation based on performance)
-   Energy usage and compute costs per task
+- Task completion time
+- Device reputation (with periodic recalculation based on performance)
+- Energy usage and compute costs per task
 
 ## Simulation Program
 The simulation program is a Go-based script that:
-          - Generates 2,000 tasks with different types (e.g., Immersive Communication, AI, Ubiquitous Connectivity).
-          - Sends tasks to the blockchain and evaluates system performance with real-time stats.
-          - Tracks metrics such as:
-                - Task success/failure rates
-                - Average task duration and standard deviation
-                - Bandwidth (tasks per second)
-                - Task confirmation and consensus time
-                - Device stats: average UAV battery life, available UAVs, EC compute costs, and task distributions across devices.
+- Generates 2,000 tasks with different types (e.g., Immersive Communication, AI, Ubiquitous Connectivity).
+- Sends tasks to the blockchain and evaluates system performance with real-time stats.
+- Tracks metrics such as:
+- Task success/failure rates
+  - Average task duration and standard deviation
+  - Bandwidth (tasks per second)
+  - Task confirmation and consensus time
+  - Device stats: average UAV battery life, available UAVs, EC compute costs, and task distributions across devices.
 
 # Prerequisites
-Before starting, make sure you have the following installed:
-      - Go (v1.18 or Lesser)
-      - Hyperledger Fabric (v2.x or higher)
-      - Docker (for running Hyperledger Fabric containers)
+## Before starting, make sure you have the following installed:
+- Go (v1.18 or Lesser)
+- Hyperledger Fabric (v2.x or higher)
+- Docker (for running Hyperledger Fabric containers)
 
-Fabric Network Setup
+## Fabric Network Setup :
 Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html Or my tuto to set up a rapid network configure with you preference https://github.com/RezanOscar/Hyperledger-Blockchain-Network-Network.git
 
 OR
