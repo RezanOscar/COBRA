@@ -145,10 +145,10 @@ Build the Simulation:
       
   And copy inside all the contenu of the fabric_simulation_client_code
       
-     ```go mod init fabric-client
+   ```go mod init fabric-client
       go get github.com/hyperledger/fabric-sdk-go
       go mod tidy
-      go mod vendor`
+      go mod vendor```
 
   After do juste the go build name_of the file
 
