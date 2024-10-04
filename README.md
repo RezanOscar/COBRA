@@ -1,5 +1,5 @@
-# COBRA
-COBRA Framework : A Cooperative Blockchain Resource Allocation Framework for 6G UAV Networks
+# COBRA Framework : A Cooperative Blockchain Resource Allocation Framework for 6G UAV Networks
+
 
 # Overview
 This repository contains the COBRA Framework with is simulation, a smart contract designed to manage task offloading in a decentralized edge computing environment. The framework leverages Non-Terrestrial Networks (NTNs), UAVs (drones), and Edge Servers (ECs) to distribute computational tasks efficiently, focusing on reliability, reputation, cost, and energy-awareness.
