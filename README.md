@@ -141,9 +141,7 @@ If you don't have a go version than 1.18 follow this step :
       `
 
 Build the Simulation:
-      `
-      mkdir fabric-client & cd fabric-client
-      `
+      `mkdir fabric-client & cd fabric-client`
       
   And copy inside all the contenu of the fabric_simulation_client_code
       
