@@ -169,6 +169,12 @@ go build Simulation.go
 The simulation will generate 2,000 tasks, send them to the blockchain, and provide performance metrics about 2 Hours for each simulation with a model you can choose one of the 5 different model and modify the number of task and the proportion of task type.
 
 
+# Some Example of Result:
+![Uploading UAV Battery Variation.png…]()
+![Time Delay](https://github.com/user-attachments/assets/93a4f689-347b-46f2-9c88-fdf8f1ab84ee)
+![Proportion](https://github.com/user-attachments/assets/effdd04b-6ee7-408d-86ef-fcf53ee6b150)
+
+
 
 
 
