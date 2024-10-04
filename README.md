@@ -58,75 +58,81 @@ Before starting, make sure you have the following installed:
       - Docker (for running Hyperledger Fabric containers)
 
 Fabric Network Setup
-Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done "https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html" Or my tuto to set up a rapid network configure with you preference "https://github.com/RezanOscar/Hyperledger-Blockchain-Network-Network.git"
+Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html Or my tuto to set up a rapid network configure with you preference https://github.com/RezanOscar/Hyperledger-Blockchain-Network-Network.git
 
 OR
 
-You can use my VM already configure with a Hyperledger Blockchain with 5 Peer / 1 Orderer and based on Raft Consensus "https://github.com/RezanOscar/COBRA-VM-Hyperledger-Blockchain.git"
+You can use my VM already configure with a Hyperledger Blockchain with 5 Peer / 1 Orderer and based on Raft Consensus https://github.com/RezanOscar/COBRA-VM-Hyperledger-Blockchain.git
 
 # Implementation
-## Smart Contract Installation on you Blockchain :
+## Smart Contract Installation on you Blockchain:
 
 To deploy the COBRA Framework on your Hyperledger Fabric network:
 ! All this command bellow work with my VM but you can addapt for your blockchain 
 
 Prepare the environment:
-```export ORDERER_CA=/opt/gopath/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/orderers/orderer.research-network.com/msp/tlscacerts/tlsca.research-network.com-cert.pem```
+```
+export ORDERER_CA=/opt/gopath/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/orderers/orderer.research-network.com/msp/tlscacerts/tlsca.research-network.com-cert.pem
+```
 
 Edit and Save the Smart Contract:
-```vim /opt/gopath/src/chain/bto_chaincode/go/test_cobra/test_cobra.go```
+```
+vim /opt/gopath/src/chain/bto_chaincode/go/test_cobra/test_cobra.go
+```
 
 Package the Chaincode:
-      `
-      peer lifecycle chaincode package cobra_algo.tar.gz --path opt/gopath/src/chain/bto_chaincode/go/test_cobra/ --lang golang --label cobra_algo
-      `
+```
+peer lifecycle chaincode package cobra_algo.tar.gz --path opt/gopath/src/chain/bto_chaincode/go/test_cobra/ --lang golang --label cobra_algo
+```
 
 Install the Chaincode (in all peer of you blockchain in my case 5 peer):
-      `
+```
       cd /
       peer lifecycle chaincode install cobra_algo.tar.gz
       peer lifecycle chaincode queryinstalledè
-      `
+```
 
 Set the Package ID (in all organizations):
-    `PACKAGE_ID=cobra_algo:<your-package-id>`
+```
+PACKAGE_ID=cobra_algo:<your-package-id>
+```
 
 Approve the Chaincode (in all organizations):
-    `
+```
     peer lifecycle chaincode approveformyorg -o orderer.research-network.com:7050 --tls true --cafile $ORDERER_CA --channelID channelcoop --name cobra_algo --version 1 --init-required --package-id $PACKAGE_ID --sequence 1 --signature-policy "OR('Provider1MSP.peer', 'Provider2MSP.peer', 'Provider3MSP.peer', 'Provider4MSP.peer', 'Provider5MSP.peer')"
-    `
+```
 
 Check Commit Readiness:
-      `
+```
       peer lifecycle chaincode checkcommitreadiness --channelID channelcoop --name cobra_algo --version 1 --sequence 1 --output json --init-required --signature-policy "OR('Provider1MSP.peer', 'Provider2MSP.peer', 'Provider3MSP.peer', 'Provider4MSP.peer', 'Provider5MSP.peer')"
-      `
+```
 
 Commit the Chaincode (on one peer):
-      `
+```
       PRO1_CERTFILES_PEER=/opt/gopath/fabric-samples/research-network/crypto-config/peerOrganizations/pro1.research-network.com/peers/peer0.pro1.research-network.com/tls/ca.crt
       PRO2_CERTFILES_PEER=/opt/gopath/fabric-samples/research-network/crypto-config/peerOrganizations/pro2.research-network.com/peers/peer0.pro2.research-network.com/tls/ca.crt
       PRO3_CERTFILES_PEER=/opt/gopath/fabric-samples/research-network/crypto-config/peerOrganizations/pro3.research-network.com/peers/peer0.pro3.research-network.com/tls/ca.crt
       PRO4_CERTFILES_PEER=/opt/gopath/fabric-samples/research-network/crypto-config/peerOrganizations/pro4.research-network.com/peers/peer0.pro4.research-network.com/tls/ca.crt
       PRO5_CERTFILES_PEER=/opt/gopath/fabric-samples/research-network/crypto-config/peerOrganizations/pro5.research-network.com/peers/peer0.pro5.research-network.com/tls/ca.crt
       peer lifecycle chaincode commit -o orderer.research-network.com:7050 --tls true --cafile $ORDERER_CA --channelID channelcoop --name cobra_algo --peerAddresses peer0.pro1.research-network.com:7051 --tlsRootCertFiles $PRO1_CERTFILES_PEER --peerAddresses peer0.pro2.research-network.com:7051 --tlsRootCertFiles $PRO2_CERTFILES_PEER --peerAddresses peer0.pro3.research-network.com:7051 --tlsRootCertFiles $PRO3_CERTFILES_PEER --peerAddresses peer0.pro4.research-network.com:7051 --tlsRootCertFiles $PRO4_CERTFILES_PEER --peerAddresses peer0.pro5.research-network.com:7051 --tlsRootCertFiles $PRO5_CERTFILES_PEER --version 1 --sequence 1 --init-required --signature-policy "OR('Provider1MSP.peer', 'Provider2MSP.peer', 'Provider3MSP.peer', 'Provider4MSP.peer', 'Provider5MSP.peer')"
-      `
+```
 
 Query Committed Chaincode:
-      `
+```
       peer lifecycle chaincode querycommitted --channelID channelcoop --name cobra_algo
-      `
+```
 
     
 Initialize the Ledger (on one peer):
-      `
+```
       peer chaincode invoke -o orderer.research-network.com:7050 --tls true --cafile $ORDERER_CA -C channelcoop -n cobra_algo --peerAddresses peer0.pro1.research-network.com:7051 --tlsRootCertFiles $PRO1_CERTFILES_PEER --peerAddresses peer0.pro2.research-network.com:7051 --tlsRootCertFiles $PRO2_CERTFILES_PEER --peerAddresses peer0.pro3.research-network.com:7051 --tlsRootCertFiles $PRO3_CERTFILES_PEER --peerAddresses peer0.pro4.research-network.com:7051 --tlsRootCertFiles $PRO4_CERTFILES_PEER --peerAddresses peer0.pro5.research-network.com:7051 --tlsRootCertFiles $PRO5_CERTFILES_PEER --isInit -c '{"function":"initLedger","Args":[]}'
-      `
+```
 
 
 ## Simulation Program
 
 If you don't have a go version than 1.18 follow this step :
-     `
+```
       sudo rm -rf /usr/local/go
       wget https://golang.org/dl/go1.17.5.linux-amd64.tar.gz
       sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz
@@ -134,22 +140,28 @@ If you don't have a go version than 1.18 follow this step :
       source ~/.bashrc  # OR source ~/.zshrc if you use zsh
       go version
       rm go1.17.5.linux-amd64.tar.gz
-      `
+```
 
 Build the Simulation:
-      ```mkdir fabric-client & cd fabric-client```
+```
+mkdir fabric-client & cd fabric-client
+```
       
   And copy inside all the contenu of the fabric_simulation_client_code
       
-   ```go mod init fabric-client
+```
+go mod init fabric-client
       go get github.com/hyperledger/fabric-sdk-go
       go mod tidy
-      go mod vendor```
+      go mod vendor
+```
 
   After do juste the go build name_of the file
 
-     `go build Simulation.go
-      ./Simulation`
+```
+go build Simulation.go
+./Simulation
+```
 
 The simulation will generate 2,000 tasks, send them to the blockchain, and provide performance metrics about 2 Hours for each simulation with a model you can choose one of the 5 different model and modify the number of task and the proportion of task type.
 
