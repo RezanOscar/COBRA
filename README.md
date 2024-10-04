@@ -71,9 +71,9 @@ To deploy the COBRA Framework on your Hyperledger Fabric network:
 ! All this command bellow work with my VM but you can addapt for your blockchain 
 
 Prepare the environment:
-      `
+      ```
       export ORDERER_CA=/opt/gopath/fabric-samples/research-network/crypto-config/ordererOrganizations/research-network.com/orderers/orderer.research-network.com/msp/tlscacerts/tlsca.research-network.com-cert.pem
-      `
+      ```
 
 Edit and Save the Smart Contract:
       `
