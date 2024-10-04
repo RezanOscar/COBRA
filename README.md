@@ -61,11 +61,13 @@ The simulation program is a Go-based script that:
 - Docker (for running Hyperledger Fabric containers)
 
 ## Fabric Network Setup :
-Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html Or my tuto to set up a rapid network configure with you preference https://github.com/RezanOscar/Hyperledger-Blockchain-Network-Network.git
+Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html 
 
-OR
 
-You can use my VM already configure with a Hyperledger Blockchain with 5 Peer / 1 Orderer and based on Raft Consensus https://github.com/RezanOscar/COBRA-VM-Hyperledger-Blockchain.git
+Or 
+
+My tuto to set up a rapid network configure with already configure with a Hyperledger Blockchain with 5 Peer / 1 Orderer and based on Raft Consensus or with your preference [https://github.com/RezanOscar/Hyperledger-Blockchain-Network-Network.git](https://github.com/RezanOscar/Hyperledger-Blockchain-Fabric-Network-COBRA.git)
+
 
 # Implementation
 ## Smart Contract Installation on you Blockchain:
