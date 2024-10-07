@@ -159,7 +159,7 @@ Initialize the Ledger (on one peer):
 ```
 
 > [!TIP]
-> 
+> In the case of modification of the smart contract, it will be necessary to reflect the modification on all the files, in the commands above the name is "cobra_algo" which is the one present in the sdk files, always be careful to use the correct SC and the sequence number for each modification the number is incremented
 
 Now you have implement the SC in your Smart Contract, but now you have to use a SDK to communicate with the blockchain and so use your SC.
 
