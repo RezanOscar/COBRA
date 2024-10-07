@@ -204,10 +204,11 @@ The simulation will generate 2,000 tasks, send them to the blockchain, and provi
 > If of course you want this to work with your blockchain, you will need to modify your main config file to allow the connection with your blockchain and modify all the files with the correct information, in particular the use / name part of the channel and the SC
 >````
 >  // Initialize the SDK and channel client
-    sdk, channelClient, err := initSDKAndClient("cobra-config.yaml", "channelcoop", "Admin", "Provider1MSP")
+>    sdk, channelClient, err := initSDKAndClient("cobra-config.yaml", "channelcoop", "Admin", "Provider1MSP")
 > ````
 
 # Some Example of Result that show the efficiency of my framework:
+The different graph below show our the result of our framework, to have the same type of graphes use the generate_graphes python file
 
 This graph the variation of the Battery after 1000 task send :
 
