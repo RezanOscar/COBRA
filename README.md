@@ -1,6 +1,5 @@
 # COBRA Framework : A Cooperative Blockchain Resource Allocation Framework for 6G UAV Networks
 
-
 # Overview
 This repository contains the COBRA Framework with is simulation, a smart contract designed to manage task offloading in a decentralized edge computing environment. The framework leverages Non-Terrestrial Networks (NTNs), UAVs (drones), and Edge Servers (ECs) to distribute computational tasks efficiently, focusing on reliability, reputation, cost, and energy-awareness.
 
@@ -26,7 +25,33 @@ You can find in this repository, 2 Folder and 2 Files :
 -  The ***"result"*** folder contains different csv result files of the simulation and also a python code to generate graphes.
 -  For the 2 files, there are the ***"Cobra_Algo_SC"*** go file is the smart contract inplement in my Blockchain and the ***"simulation"*** go file to simulate the task send and have the result, a more detailed explanation is available below.
 
-## Smart Contract: COBRA Framework
+> [!NOTE]
+> Depending on your usage, you will need to adapt the distribution of the proportion of tasks sent and the number of UVA and ES. To do this, you just need to modify the simulation file, and finally you can modify Lambda and Epsilon to change the weight of the energy importance and reputation of the devices.
+
+> [!IMPORTANT]
+> All these files can simply work with my Hyperledger blockchain to have the same results you will have to follow the installation of my architecture or adapt the configuration files to your blockchain
+
+# Scenario Use Case
+
+The simulation is carried out following a use case of the framework in the future indeed with the rapid evolution of 6G technologies and the rise of NTNs, such as UAVs and Edge servers, it becomes possible to deploy temporary and powerful communication networks in regions lacking infrastructure. The combination of these technologies with blockchain offers increased security and transparency, essential for the management of resources and data in decentralized environments. As the requirements for intelligent transport and automated industrial processes increase, this platform will provide an integrated and scalable solution, optimizing operations while ensuring a fair distribution of benefits for each actor in the network.
+
+This scenario therefore proposes a cooperative computing platform using UAVs (drones) and Edge servers to create an integrated solution that simultaneously meets the needs of connectivity, data processing and optimization of transport systems. In rural and remote areas, the challenges of connectivity, automation of industrial processes and management of intelligent transport systems are compounded by the lack of suitable infrastructure.
+
+UAVs from different suppliers play a vital role in providing aerial computing power and establishing a temporary communication network or strengthening existing networks in these isolated areas. This infrastructure not only supports industrial operations by automating production systems through AI, but also optimizes the movement and management of autonomous vehicle fleets, making transportation safer and more efficient.
+
+Blockchain is integrated into this platform to ensure increased security and full transparency in interactions between service providers, ensuring a fair distribution of gains based on the contributions of each actor in the network.
+
+# Problem Statement
+In Non-Terrestrial Networks (NTNs) composed of UAVs and Edge Computing (EC) servers, the challenge is to efficiently allocate computational tasks to devices with limited resources. The goal is to select the optimal device for each task while minimizing energy consumption, especially for UAVs with limited battery life, and maintaining high service quality. An incentive mechanism is also needed to encourage active participation from infrastructure providers.
+
+# CoBRA Algorithm Overview
+The CoBRA framework uses three key metrics to guide its decision-making process:
+- Task Cost Index (TCI): Evaluates devices based on energy and computational costs to find the most efficient option.
+- Reputation Index (Rp): Measures the reliability of devices based on their past performance, ensuring consistent task execution.
+- Reliability Index (RI): Assesses UAVs and nodes based on their battery level and available resources, prioritizing devices that can reliably complete tasks.
+The algorithm begins by calculating these indices for each eligible device. It then selects the device with the optimal combination of low TCI and high RI to execute the task. Throughout the process, the blockchain is used to monitor performance and update reputation scores, ensuring a fair and efficient task allocation while promoting collaboration within the network.
+
+# Smart Contract: COBRA Framework
 Task Offloading Algorithms: Implements multiple task offloading strategies, including:
 - Round Robin: Tasks are distributed to devices in a round-robin fashion.
 - Random Selection: Tasks are assigned randomly to available devices.
@@ -133,9 +158,13 @@ Initialize the Ledger (on one peer):
       peer chaincode invoke -o orderer.research-network.com:7050 --tls true --cafile $ORDERER_CA -C channelcoop -n cobra_algo --peerAddresses peer0.pro1.research-network.com:7051 --tlsRootCertFiles $PRO1_CERTFILES_PEER --peerAddresses peer0.pro2.research-network.com:7051 --tlsRootCertFiles $PRO2_CERTFILES_PEER --peerAddresses peer0.pro3.research-network.com:7051 --tlsRootCertFiles $PRO3_CERTFILES_PEER --peerAddresses peer0.pro4.research-network.com:7051 --tlsRootCertFiles $PRO4_CERTFILES_PEER --peerAddresses peer0.pro5.research-network.com:7051 --tlsRootCertFiles $PRO5_CERTFILES_PEER --isInit -c '{"function":"initLedger","Args":[]}'
 ```
 
+> [!TIP]
+> 
 
-## Simulation Program
+Now you have implement the SC in your Smart Contract, but now you have to use a SDK to communicate with the blockchain and so use your SC.
 
+## Simulation Program and Creation of the Go SDK
+The fist step in your user machine, is to install the good go version.
 If you don't have a go version than 1.18 follow this step :
 ```
       sudo rm -rf /usr/local/go
@@ -153,9 +182,10 @@ mkdir fabric-client & cd fabric-client
 ```
       
   And copy inside all the contenu of the fabric_simulation_client_code
+  In the folder you will retrieve 5 files, the most important is the cobra-config.yaml this files allow to connect your machine with blokckchain, after copy all the files do the command bellow, i will create the go environement
       
 ```
-go mod init fabric-client
+      go mod init fabric-client
       go get github.com/hyperledger/fabric-sdk-go
       go mod tidy
       go mod vendor
@@ -164,12 +194,18 @@ go mod init fabric-client
   After do juste the go build name_of the file
 
 ```
-go build Simulation.go
-./Simulation
+  go build Simulation.go
+  ./Simulation
 ```
 
 The simulation will generate 2,000 tasks, send them to the blockchain, and provide performance metrics about 2 Hours for each simulation with a model you can choose one of the 5 different model and modify the number of task and the proportion of task type.
 
+> [!TIP]
+> If of course you want this to work with your blockchain, you will need to modify your main config file to allow the connection with your blockchain and modify all the files with the correct information, in particular the use / name part of the channel and the SC
+>````
+>  // Initialize the SDK and channel client
+    sdk, channelClient, err := initSDKAndClient("cobra-config.yaml", "channelcoop", "Admin", "Provider1MSP")
+> ````
 
 # Some Example of Result that show the efficiency of my framework:
 
