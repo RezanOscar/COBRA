@@ -85,6 +85,7 @@ The simulation program is a Go-based script that:
 - Go (v1.18 or Lesser)
 - Hyperledger Fabric (v2.x or higher)
 - Docker (for running Hyperledger Fabric containers)
+- All of this configuration was made on an **Ubuntu 21.04** version
 
 ## Fabric Network Setup :
 Ensure you have set up a Hyperledger Fabric network with multiple organizations and peers. You can follow the official Hyperledger Fabric documentation to set up the environment if not already done https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html 
